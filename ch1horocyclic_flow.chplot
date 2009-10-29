@@ -1,0 +1,72 @@
+window -5.2,5.2,2.4
+hyperbolic plane
+
+graphics {
+  background(Color.white)
+  nofill
+  strokewidth(1.0)
+  
+  push
+    stroke(Color.new(0.1,0.1,0.1))
+    axes(1.0,1.0,1, true)
+  pop
+
+  u = flow { |t| [1,t,0,1] }
+  
+  z         = 1.i
+  direction = 1.i
+  
+  horocycle = horocycle(z, 1+0.i, false)
+  
+  width     = 5
+  step      = 1
+  
+  stroke(Color.darkred)
+  draw(horocycle)
+  
+  
+  stroke(Color.darkblue)
+  point_style(:cross)
+  draw_set(u[z,-width,width,step], true)
+  
+  step.step(width,step) do |i|
+    arrow(z-i,z-i+direction)
+    arrow(z+i,z+i+direction)
+  end
+  
+  stroke(Color.red)
+  draw(z)
+  arrow(z,z+direction)
+  
+  
+  # z                   = -0.15+0.5.i
+  #   direction           = 1-1.i
+  #   
+  #   horocycle           = horocycle(z, direction, false)
+  #   base                = horocycle_basepoint(z, direction, false)
+  # 
+  #   horocycle_pointset  = to_set(horocycle, 16)
+  #   
+  # 
+  #   stroke(Color.darkblue)
+  #   strokewidth(0.5)
+  #   
+  #   i=0
+  #   pts = horocycle_pointset.points
+  #   pts.pop
+  #   pts.each do |z|
+  #     draw(geodesic(base,z))
+  #   end
+  #   
+  #   stroke(Color.darkred)
+  #   draw(horocycle)
+  #   
+  #   
+  #   point_size(2)
+  # 
+  #   stroke(Color.darkgreen)
+  #     draw(base) 
+  #     draw_set(horocycle_pointset, true)
+    
+
+}

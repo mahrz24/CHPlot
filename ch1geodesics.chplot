@@ -1,0 +1,20 @@
+window -1.2,1.2,2.4
+hyperbolic plane
+
+graphics {
+  background(Color.white)
+  nofill
+  strokewidth(1.0)
+  
+  push
+    stroke(Color.new(0.1,0.1,0.1))
+    axes(1.0,1.0,1, true)
+  pop
+  
+  stroke(Color.darkblue)
+  
+  draw(geodesic(0.5+1.i,0.5+1.2.i))
+  draw(geodesic(0.6.i, 0.4+0.2.i))
+  
+   draw(geodesic(0.8.i, -0.2+0.7.i))
+}

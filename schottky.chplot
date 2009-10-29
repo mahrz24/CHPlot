@@ -1,0 +1,56 @@
+window -3,3,-2,2
+
+graphics {
+  background(Color.white)
+  nofill
+
+  push
+    stroke(Color.grey)
+    strokewidth(0.1)
+    axes(1,1,10, true)
+  pop
+
+  s = 0.1
+  t = 0.97
+
+  T = moebius_map(s+t,-2*s*t,-2.0,s+t)
+  S = moebius_map(s+t,2,2*s*t,s+t)
+
+  T1 = T.inverse
+  S1 = S.inverse
+
+  alphabet = [T,S,S1,T1]
+  maxdepth = 10
+
+  cA = circle(s+(t-s)/2 + 0.i ,(t-s)/2)
+  cB = circle(-1/t-(1/s-1/t)/2 + 0.i,(1/s-1/t)/2)
+
+  stroke(Color.red)
+  draw(cB)
+
+  stroke(Color.blue)
+  draw(cA)
+  nofill
+  
+  def dfs(cA,cB, alphabet, depth, maxdepth, fill = false, last_transform = nil)
+    alphabet.each_index do |i|
+      
+      # Avoid direct inversion
+      next if alphabet[i]==last_transform
+      ca = alphabet[i][cA]
+      cb = alphabet[i][cB]
+
+      fill(Color.blue) if fill
+      stroke(Color.blue)
+      draw(ca)
+      
+      fill(Color.red) if fill
+      stroke(Color.red)
+      draw(cb)
+      
+      dfs(ca,cb, alphabet, depth+1, maxdepth,fill,alphabet[3-i]) if depth < maxdepth
+    end
+  end
+  
+  dfs(cA,cB, alphabet, 0, 4)
+}
